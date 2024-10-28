@@ -1,0 +1,61 @@
+<div class="container ">
+  @if(temp<30){
+    <img src="rainy.jpg" alt="" class="card-img  position-fixed  vw-100 vh-100 start-0" />
+  }
+  @else if(temp>35) {
+  <img src="sun.avif" alt="" class="card-img opacity-75 position-fixed  vw-100 vh-100 start-0" />
+  }
+  @else {
+    <img src="bg.jpg" alt="" class="card-img opacity-75 position-fixed  vw-100 vh-100 start-0" />
+  }
+  <div class="" style="border: none">
+  
+    <div class=" d-flex flex-column mx-auto align-items-center position-relative" >
+      <form class="col-10 col-md-7 col-lg-5 d-flex align-items-center mx-auto" #f="ngForm" (ngSubmit)="getweather()">
+        <input
+          type="text"
+          name="Location"
+          id="Location"
+          class="form-control my-3"
+          ngModel
+          required
+          [(ngModel)]="city"
+        />
+        <button class="btn btn-danger" [disabled]="f.invalid">Search</button>
+      </form>
+
+      <div *ngIf="weather" class="col-12 col-lg-10 text-center text-light blur p-5 rounded-5">
+        <h1>{{ weather.name }}</h1>
+        
+        <p class="display-1" style="font-size: 180px">{{ temp }}°</p>
+        <p class="badge text-bg-secondary fw-light rounded-pill fs-6">
+          <i class="bi bi-thermometer-sun"></i> Feels Like : {{ feel_like }}°
+        </p>
+        <p>
+          {{ weather.weather[0].description }} {{ minTemp }}° / {{ maxTemp }}°
+        </p>
+        <p>
+          <i class="bi bi-sunrise"></i> {{ sunrise }} /
+          <i class="bi bi-sunset"></i>{{ sunset }}
+        </p>
+      </div>
+
+      <div *ngIf="weather" class="row col-10 text-white d-flex justify-content-center">
+        <div class="col-12  col-lg-3 blur p-4  m-4 d-flex flex-column align-items-center rounded-4">
+          <h3 class="display-6">{{ weather.main.humidity }}%</h3>
+          <p class="fs-4"><i class="bi bi-droplet-half"></i> Humidity</p>
+        </div>
+        <div class="col-12  col-lg-3 blur p-4  m-4 d-flex flex-column align-items-center rounded-4">
+          <h3 class="display-6">{{ weather.main.pressure }}</h3>
+          <p class="fs-4"><i class="bi bi-speedometer2"></i> Pressure</p>
+        </div>
+        <div  class="col-12  col-lg-3 blur p-4  m-4 d-flex flex-column align-items-center rounded-4" >
+          <h3 class="display-6">
+            {{ weather.wind.speed }} <span class="fs-6"> km/h</span>
+          </h3>
+          <p class="fs-4"><i class="bi bi-wind"></i> Wind</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
